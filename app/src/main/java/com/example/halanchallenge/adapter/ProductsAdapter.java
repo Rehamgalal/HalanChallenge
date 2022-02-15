@@ -1,8 +1,6 @@
-package com.example.halanchallenge;
+package com.example.halanchallenge.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,24 +11,21 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.halanchallenge.R;
 import com.example.halanchallenge.model.Product;
 
 import java.util.List;
-
-import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHolder> {
 
     private List<com.example.halanchallenge.model.Product> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
-    private Context context;
 
     // data is passed into the constructor
-    ProductsAdapter(Context context, List<com.example.halanchallenge.model.Product> data) {
+    public ProductsAdapter(Context context, List<com.example.halanchallenge.model.Product> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
-        this.context = context;
     }
 
     // inflates the row layout from xml when needed
@@ -89,7 +84,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
     }
 
     // allows clicks events to be caught
-    void setClickListener(ItemClickListener itemClickListener) {
+    public void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
 

@@ -3,8 +3,6 @@ package com.example.halanchallenge.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.example.halanchallenge.ProductsListActivity;
-
 public class ListActivityDataItem implements Parcelable {
     private LoginResponse loginResponse;
     private ProductsList productsList;

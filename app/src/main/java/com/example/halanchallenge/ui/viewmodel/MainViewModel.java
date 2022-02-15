@@ -1,9 +1,11 @@
-package com.example.halanchallenge;
+package com.example.halanchallenge.ui.viewmodel;
 
-import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import android.app.Application;
 
-import android.content.Context;
-import android.content.Intent;
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.halanchallenge.api.ApiService;
 import com.example.halanchallenge.model.ListActivityDataItem;
@@ -11,12 +13,16 @@ import com.example.halanchallenge.model.ListActivityDataItem;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class Login {
+public class MainViewModel extends AndroidViewModel {
 
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private MutableLiveData<ListActivityDataItem> result = new MutableLiveData<>();
 
-    public void login(String username, String password, Context context) {
+    public MainViewModel(@NonNull Application application) {
+        super(application);
+    }
 
+    public void login(String username, String password) {
         compositeDisposable.add(ApiService.getInstance().getMyApi().login(username, password)
                 .flatMap(loginResponse ->
                                 ApiService.getInstance().getMyApi().getProductsList(loginResponse.getToken())
@@ -24,16 +30,16 @@ public class Login {
                 ).subscribeOn(Schedulers.io())
                 .subscribe(
                         listActivityDataItem -> {
-                            Intent myIntent = new Intent(context, ProductsListActivity.class);
-                            myIntent.setFlags(FLAG_ACTIVITY_NEW_TASK);
-                            myIntent.putExtra("RESPONSE", listActivityDataItem.getLoginResponse());
-                            myIntent.putExtra("PRODUCTS", listActivityDataItem.getProductsList());
-                            context.startActivity(myIntent);
+                            result.postValue(listActivityDataItem);
                         }, (io.reactivex.functions.Consumer<? super Throwable>) throwable -> {
 
                         }
 
                 ));
 
+    }
+
+    public LiveData<ListActivityDataItem> getResult() {
+        return this.result;
     }
 }

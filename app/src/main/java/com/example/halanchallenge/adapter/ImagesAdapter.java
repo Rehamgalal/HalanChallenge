@@ -1,19 +1,16 @@
-package com.example.halanchallenge;
+package com.example.halanchallenge.adapter;
 
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.halanchallenge.R;
 
 import java.util.List;
 
@@ -24,7 +21,7 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ViewHolder
     private Context context;
 
     // data is passed into the constructor
-    ImagesAdapter(Context context, List<String> data) {
+    public ImagesAdapter(Context context, List<String> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.context = context;
