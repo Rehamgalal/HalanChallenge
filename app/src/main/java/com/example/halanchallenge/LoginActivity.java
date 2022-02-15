@@ -25,12 +25,8 @@ public class LoginActivity extends AppCompatActivity {
         login = new Login();
 
 
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                login.login(userNameEt.getText().toString(), passwordEt.getText().toString(),getApplicationContext());
-            }
-        });
+        loginBtn.setOnClickListener(view -> login.login(userNameEt.getText().toString(),
+                passwordEt.getText().toString(),getApplicationContext()));
 
     }
 }

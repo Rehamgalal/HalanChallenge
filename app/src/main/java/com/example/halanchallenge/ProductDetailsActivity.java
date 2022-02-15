@@ -41,12 +41,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getBundleExtra("PARCELABLE");
         product = (Product) bundle.getParcelable("ITEM");
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        back.setOnClickListener(view -> finish());
         description.setText(product.deal_description);
         title.setText(product.name_ar);
         description.setMovementMethod(new ScrollingMovementMethod());
