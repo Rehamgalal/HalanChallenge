@@ -52,8 +52,9 @@ public class ProductsListActivity extends AppCompatActivity {
         userIV= findViewById(R.id.user_iv);
         logoutIV = findViewById(R.id.logoutIV);
 
-        Glide.with(this).load(loginResponse.profile.image).into(userIV);
-
+if (loginResponse.profile != null) {
+        Glide.with(this).load(loginResponse.profile.image).placeholder(R.drawable.circle).into(userIV);
+}
         productsListRV = findViewById(R.id.products_list_rv);
 
         logoutIV.setOnClickListener(new View.OnClickListener() {

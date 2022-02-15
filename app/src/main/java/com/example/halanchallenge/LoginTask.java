@@ -8,8 +8,11 @@ import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -21,7 +24,7 @@ public class LoginTask extends AsyncTask<String, Void, Boolean> {
 
     private String username, password;
     private Context context;
-
+    StringBuilder builder = new StringBuilder();
     LoginTask(Context context){
         this.context =context;
     }
@@ -43,6 +46,7 @@ public class LoginTask extends AsyncTask<String, Void, Boolean> {
             URL url = new URL("https://assessment-sn12.halan.io/auth");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
+            connection.setRequestProperty("Accept", "application/json");
             connection.addRequestProperty("Content-Type", "application/json");
             connection.setDoInput(true);
             connection.setDoOutput(true);
@@ -60,7 +64,13 @@ public class LoginTask extends AsyncTask<String, Void, Boolean> {
             int status = connection.getResponseCode();
             switch (status) {
                 case 200:
-
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getResponseCode() / 100 == 2 ? connection.getInputStream() : connection.getErrorStream()));
+                    String inputLine;
+                    while ((inputLine = reader.readLine()) != null) {
+                        builder.append(inputLine);
+                    }
+                    reader.close();
+                    connection.disconnect();
                     this.onPostExecute(true);
             }
         } catch (java.net.MalformedURLException e) {
@@ -78,6 +88,7 @@ public class LoginTask extends AsyncTask<String, Void, Boolean> {
         if (success){
             Intent myIntent = new Intent(context, ProductsListActivity.class);
             myIntent.setFlags(FLAG_ACTIVITY_NEW_TASK);
+            myIntent.putExtra("RESPONSE",builder.toString());
             context.startActivity(myIntent);
         }
 
