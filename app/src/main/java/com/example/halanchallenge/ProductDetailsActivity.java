@@ -40,7 +40,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         indicatorView = findViewById(R.id.ar_indicator);
 
         Bundle bundle = getIntent().getBundleExtra("PARCELABLE");
-        product = (Product) bundle.getParcelable("ITEM");
+        product =  bundle.getParcelable("ITEM");
 
         back.setOnClickListener(view -> finish());
         description.setText(product.getDeal_description());

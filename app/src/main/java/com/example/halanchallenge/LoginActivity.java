@@ -3,7 +3,6 @@ package com.example.halanchallenge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -25,8 +24,10 @@ public class LoginActivity extends AppCompatActivity {
         login = new Login();
 
 
+
+        if (userNameEt.getText().length() >= 6 && userNameEt.getText().length() <= 16) {
         loginBtn.setOnClickListener(view -> login.login(userNameEt.getText().toString(),
-                passwordEt.getText().toString(),getApplicationContext()));
+                passwordEt.getText().toString(),getApplicationContext()));}
 
     }
 }
