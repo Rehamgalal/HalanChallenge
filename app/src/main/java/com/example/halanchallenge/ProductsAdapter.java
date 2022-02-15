@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.halanchallenge.model.Product;
 
 import java.util.List;
 
@@ -20,13 +21,13 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHolder> {
 
-    private List<Product> mData;
+    private List<com.example.halanchallenge.model.Product> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
     private Context context;
 
     // data is passed into the constructor
-    ProductsAdapter(Context context, List<Product> data) {
+    ProductsAdapter(Context context, List<com.example.halanchallenge.model.Product> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.context = context;
@@ -42,18 +43,14 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Product item = mData.get(position);
+        com.example.halanchallenge.model.Product item = mData.get(position);
         if (item != null){
-            holder.myTextView.setText(item.name_ar);
-            Glide.with(holder.productImageView.getContext()).load(item.image).into(holder.productImageView);
+            holder.myTextView.setText(item.getName_ar());
+            Glide.with(holder.productImageView.getContext()).load(item.getImage()).into(holder.productImageView);
             holder.moreButton.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
-                    Bundle myBundle = new Bundle();
-                    myBundle.putParcelable("ITEM",item);
-                    Intent myIntent = new Intent(context, ProductDetailsActivity.class).putExtra("PARCELABLE",myBundle);
-                    myIntent.setFlags(FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(myIntent);
+                    mClickListener.onItemClick(view, position);
                 }
             });
         }

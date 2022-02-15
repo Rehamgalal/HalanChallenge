@@ -1,32 +1,29 @@
 package com.example.halanchallenge;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.androidnetworking.AndroidNetworking;
-import com.androidnetworking.common.Priority;
-import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.bumptech.glide.Glide;
 import com.example.halanchallenge.model.LoginResponse;
+import com.example.halanchallenge.model.ProductsList;
 import com.google.gson.Gson;
-
-import org.json.JSONObject;
 
 public class ProductsListActivity extends AppCompatActivity {
 
     LoginResponse response;
+    ProductsList productsList;
 
     TextView userName, phoneNumber, email;
     RecyclerView productsListRV;
     ImageView userIV,logoutIV;
-    ProductsList productsList;
 
     ProductsAdapter productsListAdapter;
 
@@ -39,6 +36,7 @@ public class ProductsListActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             response = bundle.getParcelable("RESPONSE");
+            productsList = bundle.getParcelable("PRODUCTS");
         }
 
         Gson gson = new Gson();
@@ -59,26 +57,15 @@ public class ProductsListActivity extends AppCompatActivity {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         productsListRV.setLayoutManager(mLayoutManager);
 
-        AndroidNetworking.initialize(getApplicationContext());
-        AndroidNetworking.get("https://assessment-sn12.halan.io/products")
-                .addHeaders("Authorization", "Bearer " + response.getToken())
-                .setPriority(Priority.HIGH)
-                .build()
-                .getAsJSONObject(new JSONObjectRequestListener() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        productsList = gson.fromJson(String.valueOf(response), ProductsList.class);
-                        productsListAdapter = new ProductsAdapter(getBaseContext(), productsList.products);
-                        productsListAdapter.notifyDataSetChanged();
-                        productsListRV.setAdapter(productsListAdapter);
-                        productsListAdapter.setClickListener((view, position) -> {
-                        });
-                    }
-                    @Override
-                    public void onError(ANError error) {
-                        Log.e("FastError", error.getMessage());
-                    }
-                });
+        productsListAdapter = new ProductsAdapter(getBaseContext(), productsList.getProducts());
+        productsListRV.setAdapter(productsListAdapter);
+        productsListAdapter.setClickListener((view, position) -> {
+            Bundle myBundle = new Bundle();
+            myBundle.putParcelable("ITEM",productsList.getProducts().get(position));
+            Intent myIntent = new Intent(this, ProductDetailsActivity.class).putExtra("PARCELABLE",myBundle);
+            myIntent.setFlags(FLAG_ACTIVITY_NEW_TASK);
+            startActivity(myIntent);
+        });
 
         userName.setText(response.getProfile().getName());
         phoneNumber.setText(response.getProfile().getPhone());

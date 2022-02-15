@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.arindicatorview.ARIndicatorView;
+import com.example.halanchallenge.model.Product;
 
 
 public class ProductDetailsActivity extends AppCompatActivity {
@@ -42,12 +43,12 @@ public class ProductDetailsActivity extends AppCompatActivity {
         product = (Product) bundle.getParcelable("ITEM");
 
         back.setOnClickListener(view -> finish());
-        description.setText(product.deal_description);
-        title.setText(product.name_ar);
+        description.setText(product.getDeal_description());
+        title.setText(product.getName_ar());
         description.setMovementMethod(new ScrollingMovementMethod());
-        price.setText("كاش"+"           "+product.price+"جنيه");
+        price.setText("كاش"+"           "+product.getPrice()+"جنيه");
 
-        imagesAdapter = new ImagesAdapter(this,product.images);
+        imagesAdapter = new ImagesAdapter(this,product.getImages());
         imagesListRV.setAdapter(imagesAdapter);
 
         indicatorView.attachTo(imagesListRV,true);
