@@ -8,7 +8,7 @@
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_outlined_logout.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.21875" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.21875" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_product_details.xml" value="0.21510416666666668" />
         <entry key="app/src/main/res/layout/activity_products_list.xml" value="0.21510416666666668" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.22916666666666666" />

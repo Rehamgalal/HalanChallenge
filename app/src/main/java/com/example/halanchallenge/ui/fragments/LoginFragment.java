@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +15,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.halanchallenge.R;
-import com.example.halanchallenge.ui.MainActivity;
 import com.example.halanchallenge.ui.viewmodel.MainViewModel;
 
 
@@ -44,12 +44,10 @@ public class LoginFragment extends Fragment {
         loginBtn = view.findViewById(R.id.login_button);
         loginBtn.setOnClickListener(v -> model.login(userNameEt.getText().toString(),passwordEt.getText().toString()));
         model.getResult().observe(getViewLifecycleOwner(), listActivityDataItem -> {
-            ProductListFragment productListFragment = new ProductListFragment();
             Bundle bundle = new Bundle();
             bundle.putParcelable("RESPONSE",listActivityDataItem.getLoginResponse());
             bundle.putParcelable("PRODUCTS",listActivityDataItem.getProductsList());
-            productListFragment.setArguments(bundle);
-            ((MainActivity)requireActivity()).replace(productListFragment);
+            Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_productListFragment,bundle);
         });
     }
 }

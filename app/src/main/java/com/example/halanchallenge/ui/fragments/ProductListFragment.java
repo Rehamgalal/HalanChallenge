@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -71,11 +72,10 @@ public class ProductListFragment extends Fragment {
         productsListAdapter = new ProductsAdapter(requireContext(), productsList.getProducts());
         productsListRV.setAdapter(productsListAdapter);
         productsListAdapter.setClickListener((v, position) -> {
-            ProductDetailsFragment productDetailsFragment = new ProductDetailsFragment();
-            Bundle myBundle = new Bundle();
-            myBundle.putParcelable("ITEM",productsList.getProducts().get(position));
-            productDetailsFragment.setArguments(myBundle);
-            ((MainActivity)requireActivity()).replace(productDetailsFragment);
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("ITEM",productsList.getProducts().get(position));
+            Navigation.findNavController(view).navigate(R.id.action_productListFragment_to_productDetailsFragment,bundle);
+
         });
 
         userName.setText(response.getProfile().getName());
