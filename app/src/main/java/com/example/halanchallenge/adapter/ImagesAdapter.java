@@ -1,46 +1,37 @@
 package com.example.halanchallenge.adapter;
 
 
-import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.example.halanchallenge.R;
+import com.example.halanchallenge.databinding.ImageViewItemBinding;
 
 import java.util.List;
 
 public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ViewHolder> {
 
-    private List<String> mData;
-    private LayoutInflater mInflater;
-    private Context context;
+    private final List<String> mData;
 
     // data is passed into the constructor
-    public ImagesAdapter(Context context, List<String> data) {
-        this.mInflater = LayoutInflater.from(context);
+    public ImagesAdapter( List<String> data) {
         this.mData = data;
-        this.context = context;
     }
 
     // inflates the row layout from xml when needed
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.image_view_item, parent, false);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        ImageViewItemBinding view = ImageViewItemBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false);
         return new ViewHolder(view);
     }
 
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String item = mData.get(position);
-        if (item != null){
-            Glide.with(holder.productImageView.getContext()).load(item).into(holder.productImageView);
-        }
+        holder.bind(mData.get(position));
     }
 
     // total number of rows
@@ -51,12 +42,16 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ViewHolder
 
 
     // stores and recycles views as they are scrolled off screen
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        ImageView productImageView;
+    public static class ViewHolder extends RecyclerView.ViewHolder{
+        private final ImageViewItemBinding binding;
 
-        ViewHolder(View itemView) {
-            super(itemView);
-            productImageView = itemView.findViewById(R.id.product_image_IV);
+        ViewHolder(ImageViewItemBinding itemView) {
+            super(itemView.getRoot());
+            binding = itemView;
+        }
+
+        public void bind(String path) {
+            binding.setItem(path);
         }
     }
 

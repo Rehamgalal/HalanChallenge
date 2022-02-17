@@ -2,6 +2,12 @@ package com.example.halanchallenge.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.ImageView;
+
+import androidx.databinding.BindingAdapter;
+
+import com.bumptech.glide.Glide;
+import com.example.halanchallenge.R;
 
 import java.util.List;
 
@@ -119,4 +125,21 @@ public class Product implements Parcelable {
         dest.writeInt(price);
         dest.writeStringList(images);
     }
+
+    @BindingAdapter("imagePath")
+    public static void loadProductImage(ImageView view, String path) {
+        Glide.with(view.getContext())
+                .load(path)
+                .placeholder(R.drawable.circle)
+                .into(view);
+    }
+
+
+@BindingAdapter("imageUrl")
+public static void loadImage(ImageView view, String path) {
+    Glide.with(view.getContext())
+            .load(path)
+            .placeholder(R.drawable.circle)
+            .into(view);
+}
 }

@@ -16,7 +16,7 @@ import io.reactivex.schedulers.Schedulers;
 public class MainViewModel extends AndroidViewModel {
 
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private MutableLiveData<ListActivityDataItem> result = new MutableLiveData<>();
+    private final MutableLiveData<ListActivityDataItem> result = new MutableLiveData<>();
 
     public MainViewModel(@NonNull Application application) {
         super(application);
@@ -29,9 +29,7 @@ public class MainViewModel extends AndroidViewModel {
                         , ListActivityDataItem::new
                 ).subscribeOn(Schedulers.io())
                 .subscribe(
-                        listActivityDataItem -> {
-                            result.postValue(listActivityDataItem);
-                        }, (io.reactivex.functions.Consumer<? super Throwable>) throwable -> {
+                        result::postValue, (io.reactivex.functions.Consumer<? super Throwable>) throwable -> {
 
                         }
 

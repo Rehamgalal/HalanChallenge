@@ -2,6 +2,12 @@ package com.example.halanchallenge.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.ImageView;
+
+import androidx.databinding.BindingAdapter;
+
+import com.bumptech.glide.Glide;
+import com.example.halanchallenge.R;
 
 public class Profile implements Parcelable {
 
@@ -84,5 +90,13 @@ public class Profile implements Parcelable {
         dest.writeString(name);
         dest.writeString(email);
         dest.writeString(phone);
+    }
+
+    @BindingAdapter("profilePic")
+    public static void loadImage(ImageView view, String path) {
+        Glide.with(view.getContext())
+                .load(path)
+                .placeholder(R.drawable.circle)
+                .into(view);
     }
 }
