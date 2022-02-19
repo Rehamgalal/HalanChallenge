@@ -9,6 +9,10 @@ public class ProductsList implements Parcelable{
     private String status;
     private List<Product> products;
 
+    public ProductsList(String status, List<Product> products) {
+        this.status = status;
+        this.products = products;
+    }
     protected ProductsList(Parcel in) {
         status = in.readString();
         products = in.createTypedArrayList(Product.CREATOR);

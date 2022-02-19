@@ -6,7 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.BindingAdapter;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,6 +24,7 @@ import com.example.halanchallenge.model.Product;
 import com.example.halanchallenge.model.ProductsList;
 
 import java.util.List;
+import java.util.Objects;
 
 
 public class ProductListFragment extends Fragment {
@@ -61,7 +64,8 @@ public class ProductListFragment extends Fragment {
         productsListAdapter.setClickListener(product -> {
             Bundle bundle = new Bundle();
             bundle.putParcelable("ITEM", product);
-            Navigation.findNavController(recyclerView).navigate(R.id.action_productListFragment_to_productDetailsFragment, bundle);
+            NavController navController = Navigation.findNavController(recyclerView);
+            navController.navigate(R.id.action_productListFragment_to_productDetailsFragment, bundle);
         });
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(recyclerView.getContext());
         recyclerView.setLayoutManager(mLayoutManager);
