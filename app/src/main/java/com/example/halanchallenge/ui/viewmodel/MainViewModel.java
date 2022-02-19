@@ -20,6 +20,7 @@ public class MainViewModel extends AndroidViewModel {
 
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     private final MutableLiveData<ListActivityDataItem> result = new MutableLiveData<>();
+    private final MutableLiveData<String> error = new MutableLiveData<>();
 
     @Inject
     public NetworkApi service;
@@ -35,15 +36,24 @@ public class MainViewModel extends AndroidViewModel {
                         , ListActivityDataItem::new
                 ).subscribeOn(Schedulers.io())
                 .subscribe(
-                        result::postValue, (io.reactivex.functions.Consumer<? super Throwable>) throwable -> {
-
+                        result::postValue,
+                        (io.reactivex.functions.Consumer<? super Throwable>) throwable -> {
+                            error.postValue(throwable.getMessage());
                         }
 
                 ));
 
     }
 
+    public boolean validate(String username,String password) {
+        return username.length() >= 6 && username.length() <= 15&& !password.isEmpty();
+    }
+
     public LiveData<ListActivityDataItem> getResult() {
         return this.result;
+    }
+
+    public LiveData<String> getError() {
+        return this.error;
     }
 }

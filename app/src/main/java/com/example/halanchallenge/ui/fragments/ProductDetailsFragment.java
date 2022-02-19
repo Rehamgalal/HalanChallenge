@@ -47,7 +47,7 @@ public class ProductDetailsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding.setItem(product);
-        binding.materialButton.setOnClickListener(v -> requireActivity().onBackPressed());
+        binding.back.setOnClickListener(v -> requireActivity().onBackPressed());
         binding.productDescriptionTv.setMovementMethod(new ScrollingMovementMethod());
     }
 

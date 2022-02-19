@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.example.halanchallenge.adapter.ProductsAdapter;
 import com.example.halanchallenge.R;
 import com.example.halanchallenge.databinding.FragmentProductListBinding;
@@ -51,11 +52,10 @@ public class ProductListFragment extends Fragment {
 
         binding.setItem(response.getProfile());
         binding.setProducts(productsList);
-        binding.logoutIV.setOnClickListener(v -> requireActivity().onBackPressed());
-         }
+    }
 
     @BindingAdapter("recyclerProducts")
-    public static void recyclerViewBinder(RecyclerView recyclerView, List<Product> products){
+    public static void recyclerViewBinder(RecyclerView recyclerView, List<Product> products) {
         ProductsAdapter productsListAdapter = new ProductsAdapter(products);
         recyclerView.setAdapter(productsListAdapter);
         productsListAdapter.setClickListener(product -> {
