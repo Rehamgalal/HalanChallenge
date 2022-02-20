@@ -2,6 +2,7 @@ package com.example.halanchallenge.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.provider.MediaStore;
 import android.widget.ImageView;
 
 import androidx.databinding.BindingAdapter;
@@ -22,6 +23,18 @@ public class Product implements Parcelable {
     private int price;
     private List<String> images;
 
+
+    public Product(String id, String name_ar, String deal_description, String brand, String image, String name_en,
+                   int price, List<String> images) {
+        this.id = id;
+        this.name_ar = name_ar;
+        this.deal_description = deal_description;
+        this.brand = brand;
+        this.image = image;
+        this.name_en = name_en;
+        this.price = price;
+        this.images = images;
+    }
     protected Product(Parcel in) {
         id = in.readString();
         name_ar = in.readString();

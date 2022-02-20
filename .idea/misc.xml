@@ -17,6 +17,7 @@
         <entry key="app/src/main/res/layout/fragment_product_list.xml" value="0.22916666666666666" />
         <entry key="app/src/main/res/layout/image_view_item.xml" value="0.19202898550724637" />
         <entry key="app/src/main/res/layout/product_item.xml" value="0.15364583333333334" />
+        <entry key="app/src/main/res/xml/network_security_config.xml" value="0.1" />
       </map>
     </option>
   </component>

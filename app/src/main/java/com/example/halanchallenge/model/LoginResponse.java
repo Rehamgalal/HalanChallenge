@@ -9,6 +9,11 @@ public class LoginResponse implements Parcelable {
     private String token;
     private Profile profile;
 
+    public LoginResponse(String status, String token, Profile profile) {
+        this.status = status;
+        this.token = token;
+        this.profile = profile;
+    }
     protected LoginResponse(Parcel in) {
         status = in.readString();
         token = in.readString();

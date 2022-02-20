@@ -37,9 +37,7 @@ public class MainViewModel extends AndroidViewModel {
                 ).subscribeOn(Schedulers.io())
                 .subscribe(
                         result::postValue,
-                        (io.reactivex.functions.Consumer<? super Throwable>) throwable -> {
-                            error.postValue(throwable.getMessage());
-                        }
+                        (io.reactivex.functions.Consumer<? super Throwable>) throwable -> error.postValue(throwable.getMessage())
 
                 ));
 

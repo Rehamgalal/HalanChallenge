@@ -17,6 +17,13 @@ public class Profile implements Parcelable {
     private String email;
     private String phone;
 
+    public Profile(String username, String image, String name, String email, String phone) {
+        this.username = username;
+        this.image = image;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+    }
     protected Profile(Parcel in) {
         username = in.readString();
         image = in.readString();
