@@ -67,4 +67,9 @@ public class ProductListFragment extends Fragment {
         recyclerView.setLayoutManager(mLayoutManager);
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }

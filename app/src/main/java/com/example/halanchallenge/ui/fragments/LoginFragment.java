@@ -62,4 +62,10 @@ public class LoginFragment extends Fragment {
         binding.progress.setVisibility(View.GONE);
         Toast.makeText(requireContext(),message,Toast.LENGTH_LONG).show();
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }

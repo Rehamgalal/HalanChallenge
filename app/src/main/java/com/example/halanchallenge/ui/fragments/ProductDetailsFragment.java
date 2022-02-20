@@ -57,4 +57,10 @@ public class ProductDetailsFragment extends Fragment {
         recyclerView.setAdapter(imagesAdapter);
         indicatorView.attachTo(recyclerView,true);
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }
